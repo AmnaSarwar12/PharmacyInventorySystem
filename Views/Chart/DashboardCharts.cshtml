@@ -1,0 +1,455 @@
+@{
+    ViewData["Title"] = "Dashboard Charts";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacy Inventory System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c5f2d;
+            --secondary-color: #97bc62;
+            --accent-color: #fff3cd;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: white !important;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .navbar-nav .nav-link {
+            color: white !important;
+            margin-left: 1rem;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--accent-color) !important;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-login {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        .btn-login:hover {
+            background-color: white;
+            color: var(--primary-color);
+        }
+
+        .btn-register {
+            background-color: white;
+            color: var(--primary-color);
+            border: 2px solid white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        .btn-register:hover {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            border-color: var(--accent-color);
+        }
+        .card.shadow-lg {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        .card-header {
+            background-color: var(--secondary-color);
+            color: white;
+            font-weight: 600;
+        }
+        .btn-login{
+                background-color: var(--secondary-color);
+                color: white;
+                border: none;
+                padding: 0.5rem 1.2rem;
+                border-radius: 25px;
+                transition: all 0.3s ease;
+                font-weight: 600;
+        }
+        .card-body {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            border-radius: 10px;
+        }
+         .card-body p {
+            font-size: 0.9rem;
+            color: var(--primary-color);
+        }
+         .card-body h3 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+         .card-body .text-muted {
+            color: var(--primary-color);
+        }
+         .card-body .text-success {
+            color: #28a745;
+        }
+         .card-body .text-warning {
+            color: #ffc107;
+        }
+         .card-body .text-danger {
+            color: #dc3545;
+        }
+         .card-body .fw-500 {
+            font-weight: 500;
+        }
+         .card-body .mb-1 {
+            margin-bottom: 0.25rem;
+        }
+         .card-body .mb-0 {
+            margin-bottom: 0;
+        }
+         .card-body .small {
+            font-size: 0.8rem;
+        }
+        .delete-btn{
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        .delete-btn:hover {
+            background-color: #c82333;
+        }
+        .edit-btn{
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        .edit-btn:hover {
+            background-color: #0056b3;
+        }
+       
+    </style>
+</head>
+<body>
+<div class="container-fluid mt-5">
+    <h1 class="mb-4">Dashboard Analytics</h1>
+    
+    <div class="row">
+        <!-- Products Chart -->
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Products Inventory</h5>
+                </div>
+                <div class="card-body" style="height: 400px;">
+                    <canvas id="productsChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sales Chart -->
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">Sales Overview</h5>
+                </div>
+                <div class="card-body" style="height: 400px;">
+                    <canvas id="salesChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Payment Chart -->
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">Payment Methods</h5>
+                </div>
+                <div class="card-body" style="height: 400px;">
+                    <canvas id="paymentChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Order Chart -->
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-warning text-white">
+                    <h5 class="mb-0">Order Distribution</h5>
+                </div>
+                <div class="card-body" style="height: 400px;">
+                    <canvas id="orderChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+@section Scripts {
+    <script>
+        async function fetchProductData(){
+            const product = document.getElementById("productsChart").getContext('2d');
+            const response = await fetch('http://localhost:5297/api/Product/counts',{
+                headers : {
+                    'Authorization' : "Bearer " + sessionStorage.getItem("token")
+                }
+            });
+            if(response.ok){
+                const data = await response.json();
+                console.log(data);
+                new Chart(product, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Total Products', 'Low Stock', 'Out of Stock','Expired'],
+                        datasets: [{
+                            label: 'Product Counts',
+                            data: [data.totalItems, data.lowStock, data.outOfStock, data.expiringSoon],
+                            backgroundColor: [
+                                'rgba(54, 162, 235, 0.7)',
+                                'rgba(255, 206, 86, 0.7)',
+                                'rgba(255, 99, 132, 0.7)',
+                                'rgba(201, 203, 207, 0.7)'
+                            ],
+                            borderColor: [
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(201, 203, 207, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options:{
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            title: {
+                                display: true,
+                                text: 'Product Inventory Status'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    stepSize: 1
+                                }
+                            }
+                        }
+                    }
+                });
+            } else{
+                console.error("Failed to fetch product data");
+                alert("Failed to load product data for charts.");
+            }
+        }
+        fetchProductData();
+    </script>
+
+    <script>
+        async function fetchSalesData(){
+            const sales = document.getElementById("salesChart").getContext('2d');
+            const response = await fetch(`http://localhost:5297/api/Sale/Count`,{
+                headers : {
+                    'Authorization' : "Bearer " + sessionStorage.getItem("token")
+                }
+            });
+            if(response.ok){
+                const data  = await response.json();
+                console.log(data);
+                new Chart(sales, {
+                    type: 'line',
+                    data: {
+                        labels:['Transactions','todays sales', 'thisMonth sales'],
+                        datasets:[{
+                            label: 'Sales Data',
+                            data: [data.totalSales, data.todaySales, data.monthSales],
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            title: {
+                                display: true,
+                                text: 'Sales Overview'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                })
+            }
+        }
+        fetchSalesData();
+    </script>
+    <script>
+        async function fetchPaymentData(){
+            const payment = document.getElementById("paymentChart").getContext('2d');
+            const response = await fetch(`http://localhost:5297/api/Payment/count`,{
+                headers: {
+                    'Authorization' : "Bearer " + sessionStorage.getItem("token")
+                }
+            });
+            if(response.ok){
+                const data = await response.json();
+                console.log(data);
+                new Chart(payment,{
+                    type: 'doughnut',
+                    data:{
+                        labels: ['Total Paid',"Pending Payment","Invoices"],
+                        datasets:[{
+                            labels: 'Payment Data',
+                            data: [data.totalPayment, data.pendingPayment, data.invoices],
+                            backgroundColor: [
+                                'rgba(40, 167, 69, 0.7)',
+                                'rgba(255, 193, 7, 0.7)',
+                                'rgba(190, 53, 69, 0.7)'
+                            ],
+                            borderColor: [
+                                'rgba(40, 167, 69, 1)',
+                                'rgba(255, 193, 7, 1)',
+                                'rgba(190, 53, 69, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom'
+                            },
+                            title: {
+                                display: true,
+                                text: 'Payment Methods Distribution'
+                            }
+                        }
+                    }
+                })
+            }
+        }
+        fetchPaymentData();
+    </script>
+    <script>
+        async function fetchOrderData(){
+            const orderChart = document.getElementById("orderChart").getContext('2d');
+            const response = await fetch(`http://localhost:5297/api/Order/count`,{
+                headers:{
+                    'Authorization' : "Bearer " + sessionStorage.getItem("token")
+                }
+            });
+            if(response.ok){
+                const data = await response.json();
+                console.log(data);
+                new Chart(orderChart, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Total Orders', 'Pending Orders', 'Received Orders'],
+                        datasets:[{
+                            labels: 'Order Data',
+                            data: [data.totalOrders, data.pendingOrders, data.receivedOrders],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.7)',
+                                'rgba(255, 206, 86, 0.7)',
+                                'rgba(54, 162, 235, 0.7)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(54, 162, 235, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom'
+                            },
+                            title: {
+                                display: true,
+                                text: 'Order Distribution'
+                            }
+                        }
+                    }
+                })
+            }
+        }
+        fetchOrderData();
+    </script>
+}
+</body>
+</html>
+

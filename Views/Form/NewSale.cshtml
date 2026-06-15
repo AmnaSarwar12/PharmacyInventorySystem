@@ -1,0 +1,199 @@
+@model PharmacyInventorySystem.Models.Sale;
+@{
+    ViewData["Title"] = "New Sale";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacy Inventory System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c5f2d;
+            --secondary-color: #97bc62;
+            --accent-color: #fff3cd;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: white !important;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .navbar-nav .nav-link {
+            color: white !important;
+            margin-left: 1rem;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--accent-color) !important;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-login {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        .btn-login:hover {
+            background-color: white;
+            color: var(--primary-color);
+        }
+
+        .btn-register {
+            background-color: white;
+            color: var(--primary-color);
+            border: 2px solid white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        .btn-register:hover {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            border-color: var(--accent-color);
+        }
+        .card.shadow-lg {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        .card-header {
+            background-color: var(--secondary-color);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .btn-sale{
+                background-color: var(--secondary-color);
+                color: white;
+                border: none;
+                padding: 0.5rem 1.2rem;
+                border-radius: 25px;
+                transition: all 0.3s ease;
+                font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-4">
+    <div class="card shadow-lg">
+        <div class="card-header d-flex align-items-center justify-content-between">   
+            <h5 class="mb-0">Add New Sale</h5>
+            <a href="/Inventory/SaleDashboard" class="btn btn-sm btn-light">
+                <i class="fas fa-arrow-left"></i> Back
+            </a>
+        </div>
+        <div class="card-body">
+            <form asp-action="NewSale" method="post">
+                <div class="mb-3">
+                    <label asp-for="InvoiceID" class="form-label">Invoice ID</label>
+                    <input type="text" asp-for="InvoiceID" class="form-control" id="InvoiceID" name="InvoiceID">
+                    <span asp-validation-for="InvoiceID" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Medicine" class="form-label">Medicine</label>
+                    <input type="text" asp-for="Medicine" class="form-control" id="Medicine" name="Medicine">
+                    <span asp-validation-for="Medicine" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Quantity" class="form-label">Quantity</label>
+                    <input type="number" asp-for="Quantity" class="form-control" id="Quantity" name="Quantity">
+                    <span asp-validation-for="Quantity" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Amount" class="form-label">Amount</label>
+                    <input type="number" step="0.01" asp-for="Amount" class="form-control" id="Amount" name="Amount">
+                    <span asp-validation-for="Amount" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <select id="selectedDate" name="selectedDate" class="form-control">
+                        <option value="">Select Date</option>
+                        <option value="@DateTime.Today.ToString("yyyy-MM-dd")">Today</option>
+                        <option value="@DateTime.Today.AddDays(1).ToString("yyyy-MM-dd")">Tomorrow</option>
+                        <option value="@DateTime.Today.AddDays(-1).ToString("yyyy-MM-dd")">Yesterday</option>
+                    </select>
+                   <span asp-validation-for="SaleDate" class="text-danger"></span>
+                </div>
+                <button type="button" class="btn-sale" onclick="NewSale()">Add Sale</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    async function NewSale(){
+        const SaleData = {
+            invoiceID: document.getElementById('InvoiceID').value,
+            medicine: document.getElementById('Medicine').value,
+            quantity: document.getElementById('Quantity').value,
+            amount: document.getElementById('Amount').value,
+            saleDate: document.getElementById('selectedDate').value,
+        }
+        try{
+            const response = await fetch('http://localhost:5297/api/Sale',{
+                method:'Post',
+                headers:{
+                    'content-type':'application/json',
+                    'Authorization' : "Bearer " + sessionStorage.getItem("token")
+                },
+                body:JSON.stringify(SaleData)
+            });
+            if(response.ok){
+                alert("Sale added successfully!");
+                window.location.href = "/Inventory/SaleDashboard";
+            }else{
+                alert("Failed to add sale. Please try again.");
+            }
+        }catch(error){
+            alert("An error occurred while adding the sale. Please try again later.");  
+        }   
+    }
+</script>
+</script>
+</body>
+</html>
