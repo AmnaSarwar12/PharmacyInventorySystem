@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 namespace PharmacyInventorySystem.Models
 {
     public class Sale
@@ -18,6 +19,7 @@ namespace PharmacyInventorySystem.Models
         public int Quantity { get; set; }
         [Required]
         [RegularExpression(@"^\d+(\.\d{1,2})?$", ErrorMessage = "Amount must be a valid decimal number with up to two decimal places.")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Amount { get; set; }
         public DateTime SaleDate { get; set; }
     }

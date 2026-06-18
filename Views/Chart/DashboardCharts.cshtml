@@ -243,7 +243,7 @@
     <script>
         async function fetchProductData(){
             const product = document.getElementById("productsChart").getContext('2d');
-            const response = await fetch('http://localhost:5297/api/Product/counts',{
+            const response = await fetch('http://localhost:5000/api/Product/counts',{
                 headers : {
                     'Authorization' : "Bearer " + sessionStorage.getItem("token")
                 }
@@ -306,7 +306,7 @@
     <script>
         async function fetchSalesData(){
             const sales = document.getElementById("salesChart").getContext('2d');
-            const response = await fetch(`http://localhost:5297/api/Sale/Count`,{
+            const response = await fetch(`http://localhost:5000/api/Sale/Count`,{
                 headers : {
                     'Authorization' : "Bearer " + sessionStorage.getItem("token")
                 }
@@ -354,7 +354,7 @@
     <script>
         async function fetchPaymentData(){
             const payment = document.getElementById("paymentChart").getContext('2d');
-            const response = await fetch(`http://localhost:5297/api/Payment/count`,{
+            const response = await fetch(`http://localhost:5000/api/Payment/count`,{
                 headers: {
                     'Authorization' : "Bearer " + sessionStorage.getItem("token")
                 }
@@ -403,7 +403,7 @@
     <script>
         async function fetchOrderData(){
             const orderChart = document.getElementById("orderChart").getContext('2d');
-            const response = await fetch(`http://localhost:5297/api/Order/count`,{
+            const response = await fetch(`http://localhost:5000/api/Order/count`,{
                 headers:{
                     'Authorization' : "Bearer " + sessionStorage.getItem("token")
                 }

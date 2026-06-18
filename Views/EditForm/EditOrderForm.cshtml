@@ -166,7 +166,7 @@
     async function onFormLoad(orderId){
         try{
             //adding authorization token in fetch call
-            const response = await fetch(`http://localhost:5297/api/Order/${orderId}`,{
+            const response = await fetch(`http://localhost:5000/api/Order/${orderId}`,{
                 headers:{
                     'Authorization' : "Bearer " + sessionStorage.getItem("token")
                 }
@@ -200,7 +200,7 @@
         }
         try{
             //adding authorization token in fetch call
-            const response = await fetch(`http://localhost:5297/api/Order/${orderId}`, {
+            const response = await fetch(`http://localhost:5000/api/Order/${orderId}`, {
                 method:'PUT',
                 headers:{
                     'content-type':'application/json',

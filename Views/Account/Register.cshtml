@@ -216,7 +216,7 @@
                 confirmPassword: document.getElementById("ConfirmPassword").value
             }
             try{
-                const response = await fetch(`http://localhost:5297/api/Auth/Register`, {
+                const response = await fetch(`http://localhost:5000/api/Auth/Register`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"

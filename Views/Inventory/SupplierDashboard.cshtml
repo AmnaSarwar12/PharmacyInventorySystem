@@ -218,7 +218,7 @@
         async function loadSupplier(){
             try{
                 //adding authorization token in fetch call
-                const response = await fetch("http://localhost:5297/api/Supplier",{
+                const response = await fetch("http://localhost:5000/api/Supplier",{
                     headers : {
                         'Authorization' : "Bearer " + sessionStorage.getItem("token")
                     }

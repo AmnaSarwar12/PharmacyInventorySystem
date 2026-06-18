@@ -167,7 +167,7 @@
         console.log("paymentId: ", paymentId);
         try{
             //adding authorization token in fetch call
-            const response = await fetch(`http://localhost:5297/api/payment/${paymentId}`,{
+            const response = await fetch(`http://localhost:5000/api/payment/${paymentId}`,{
                 headers:{
                     'Authorization' : "Bearer " + sessionStorage.getItem("token")
                 }
@@ -198,7 +198,7 @@
                 DueDate: document.getElementById("DueDate").value,
                 Status: document.getElementById("Status").value
             };
-            const response = await fetch(`http://localhost:5297/api/payment/${paymentId}`, {
+            const response = await fetch(`http://localhost:5000/api/payment/${paymentId}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",

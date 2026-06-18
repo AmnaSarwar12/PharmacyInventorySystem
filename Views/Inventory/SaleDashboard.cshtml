@@ -273,7 +273,7 @@
         async function LoadSales(){
             try{
                 //adding authorization token in fetch call
-                const response = await fetch("http://localhost:5297/api/Sale", {
+                const response = await fetch("http://localhost:5000/api/Sale", {
                     headers: {
                         'Authorization' : "Bearer " + sessionStorage.getItem("token")
                     }
@@ -313,7 +313,7 @@
         async function deleteSale(saleId){
             try{
                 //adding authorization token in fetch call
-                const response = await fetch(`http://localhost:5297/api/Sale/${saleId}`, {
+                const response = await fetch(`http://localhost:5000/api/Sale/${saleId}`, {
                     method: 'DELETE',
                     headers: {
                         'Authorization' : "Bearer " + sessionStorage.getItem("token")
@@ -347,7 +347,7 @@
             }
             try{
                 //adding authorization token in fetch call
-                const response = await fetch(`http://localhost:5297/api/Sale/search?Medicine=${query}`, {
+                const response = await fetch(`http://localhost:5000/api/Sale/search?Medicine=${query}`, {
                     headers: {
                         'Authorization' : "Bearer " + sessionStorage.getItem("token")
                     }
@@ -384,7 +384,7 @@
     <script>
         async function LoadSaleStats(){
             try{
-                const response = await fetch(`http://localhost:5297/api/Sale/Count`,{
+                const response = await fetch(`http://localhost:5000/api/Sale/Count`,{
                     headers:{
                         'Authorization' : "Bearer " + sessionStorage.getItem("token")
                     }

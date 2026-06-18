@@ -175,7 +175,7 @@
             saleDate: document.getElementById('selectedDate').value,
         }
         try{
-            const response = await fetch('http://localhost:5297/api/Sale',{
+            const response = await fetch('http://localhost:5000/api/Sale',{
                 method:'Post',
                 headers:{
                     'content-type':'application/json',
@@ -190,6 +190,7 @@
                 alert("Failed to add sale. Please try again.");
             }
         }catch(error){
+            console.error('Error adding sale:', error);
             alert("An error occurred while adding the sale. Please try again later.");  
         }   
     }

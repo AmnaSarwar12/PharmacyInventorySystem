@@ -290,7 +290,7 @@
         async function LoadOrders(){
             //adding authorization token in fetch call
             try{
-                const response = await fetch("http://localhost:5297/api/Order",{
+                const response = await fetch("http://localhost:5000/api/Order",{
                     headers: {
                         'Authorization' : "Bearer " + sessionStorage.getItem("token")                    }
                 });
@@ -336,7 +336,7 @@
             try{
                 //adding authorization token in fetch call
                 console.log("Attempting to delete order with ID:", orderId);
-                const response = await fetch(`http://localhost:5297/api/Order/${orderId}`, {
+                const response = await fetch(`http://localhost:5000/api/Order/${orderId}`, {
                     method: "DELETE",
                     headers: {
                         'Authorization' : "Bearer " + sessionStorage.getItem("token")
@@ -369,7 +369,7 @@
     <script>
         async function LoadOrderStats(){
             try{
-                const response = await fetch(`http://localhost:5297/api/Order/count`,{
+                const response = await fetch(`http://localhost:5000/api/Order/count`,{
                     headers: {
                         'Authorization' : "Bearer " + sessionStorage.getItem("token")
                     }

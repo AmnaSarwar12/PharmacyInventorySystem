@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>PharmacyInventory_System</RootNamespace>
+    <AssemblyName>PharmacyInventorySystem</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

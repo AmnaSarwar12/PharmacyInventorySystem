@@ -289,7 +289,7 @@
     async function LoadPayments(){
         try{
             //adding authorization token in fetch call
-            const response = await fetch("http://localhost:5297/api/Payment", {
+            const response = await fetch("http://localhost:5000/api/Payment", {
                 headers:{
                     'Authorization' : "Bearer " + sessionStorage.getItem("token")
                 }
@@ -330,7 +330,7 @@
     async function deletePayment(paymentID){
         try{
             console.log("Deleting payment with ID:", paymentID);
-            const response = await fetch(`http://localhost:5297/api/Payment/${paymentID}`, {
+            const response = await fetch(`http://localhost:5000/api/Payment/${paymentID}`, {
                 method:'DELETE',
                 headers:{
                     'Authorization' : "Bearer " + sessionStorage.getItem("token")
@@ -358,7 +358,7 @@
 <script>
     async function LoadPaymentStats(){
         try{
-            const response = await fetch(`http://localhost:5297/api/Payment/count`,{
+            const response = await fetch(`http://localhost:5000/api/Payment/count`,{
                 headers:{
                     'Authorization' : "Bearer " + sessionStorage.getItem("token")
                 }

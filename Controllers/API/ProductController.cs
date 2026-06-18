@@ -86,6 +86,7 @@ namespace PharmacyInventorySystem.Controllers.API
         //update properties
         ProductToUpdate.Name = product.Name;
         ProductToUpdate.Category = product.Category;
+        ProductToUpdate.Price = product.Price;
         ProductToUpdate.Quantity = product.Quantity;
         ProductToUpdate.ExpiryDate = product.ExpiryDate;
         _context.Products.Update(ProductToUpdate);

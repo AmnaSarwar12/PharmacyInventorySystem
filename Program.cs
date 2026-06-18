@@ -56,6 +56,17 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 builder.Services.AddAuthorization();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowMVC", policy =>
+    {
+        policy.WithOrigins("http://localhost:5297")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
+
 
 var app = builder.Build();
 
@@ -75,6 +86,7 @@ else
 
 app.UseHttpsRedirection();
 app.UseRouting();
+app.UseCors("AllowMVC");
 
 app.UseAuthentication();
 app.UseAuthorization();
