@@ -15,6 +15,7 @@ A full-stack web-based Pharmacy Inventory Management System built using ASP.NET 
 - Dashboard with Charts (Chart.js)
 - Secure password hashing using BCrypt
 - RESTful API architecture
+- Fully containerized using Docker
 
 ---
 
@@ -29,6 +30,8 @@ A full-stack web-based Pharmacy Inventory Management System built using ASP.NET 
 - Bootstrap 5
 - Chart.js
 - JavaScript (Fetch API)
+- Docker
+- Docker Compose
 
 ---
 
@@ -66,8 +69,16 @@ A full-stack web-based Pharmacy Inventory Management System built using ASP.NET 
 ```bash
 git clone https://github.com/your-username/pharmacy-inventory-system.git
 
+
+## 🐳 Docker Setup
+
+This project is fully containerized using Docker and Docker Compose.
+
+### Run the project:
+
+```bash
+docker compose up --build
+
 ## ⚙️ Future Improvement
--Docker containnerization
--Microservices architecture
 -Cloud Deployment
 
